@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/homeFragment">
+
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.splyza.testapp.presentation.home.HomeFragment"
+        android:label="@string/first_fragment_label"
+        tools:layout="@layout/fragment_home">
+
+        <action
+            android:id="@+id/action_homeFragment_to_inviteMemberFragment"
+            app:destination="@id/inviteMemberFragment" />
+
+        <action
+            android:id="@+id/action_homeFragment_to_qrCodeFragment"
+            app:destination="@id/qrCodeFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/inviteMemberFragment"
+        android:name="com.splyza.testapp.presentation.inviteMember.InviteMemberFragment"
+        android:label="@string/second_fragment_label"
+        tools:layout="@layout/fragment_invite_member">
+
+        <action
+            android:id="@+id/action_inviteMemberFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
+    </fragment>
+
+
+    <fragment
+        android:id="@+id/qrCodeFragment"
+        android:name="com.splyza.testapp.presentation.inviteMember.InviteMemberFragment"
+        android:label="@string/second_fragment_label"
+        tools:layout="@layout/fragment_invite_member">
+
+        <action
+            android:id="@+id/action_qrCodeFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
+    </fragment>
+</navigation>
