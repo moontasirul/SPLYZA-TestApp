@@ -1,0 +1,2 @@
+# SPLYZA-TestApp
+The primary unit of sale in SPLYZA Teams is the “Team”. A Team is charged for each member on the Team. There are two types of members; regular “members” and “supporters” (the differences are not important for this exercise). SPLYZA Teams has controls in place to ensure a Team does not go over its allotted member and supporter limits. These controls make it necessary to provide Team coaches and administrators the ability to view the Teams membership limits and status.
