@@ -26,7 +26,12 @@ open class BaseFragment<V : ViewBinding>(
         savedInstanceState: Bundle?
     ): View? {
         _binding = inflate(inflater, container, false)
+        observe()
         return binding.root
+    }
+
+    open fun observe() {
+
     }
 
     override fun onDestroy() {
