@@ -143,9 +143,11 @@
 
         <androidx.appcompat.widget.AppCompatSpinner
             android:id="@+id/invite_permission_sp"
+            style="@style/CustomSpinnerTheme"
             android:layout_width="0dp"
             android:layout_height="50dp"
             android:layout_marginTop="6dp"
+            android:spinnerMode="dialog"
             app:layout_constraintEnd_toEndOf="@id/guideline1"
             app:layout_constraintStart_toStartOf="@id/guideline"
             app:layout_constraintTop_toBottomOf="@id/invite_permission_label_tv" />

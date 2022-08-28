@@ -22,4 +22,9 @@
     <style name="Theme.SPLYZATestApp.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="Theme.SPLYZATestApp.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+    <style name="CustomSpinnerTheme" parent="android:Widget.Spinner">
+        <item name="android:background">@drawable/rounded_ractengle</item>
+        <item name="android:textAlignment">viewStart</item>
+    </style>
 </resources>
