@@ -4,12 +4,19 @@ import androidx.lifecycle.ViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlin.coroutines.CoroutineContext
 
 /**
  * All [ViewModel] class must inherit this [BaseViewModel] class
  */
-abstract class BaseViewModel : ViewModel(), CoroutineScope {
+abstract class BaseViewModel<N : IBaseNavigator> : ViewModel(), CoroutineScope {
+    var isLoading = MutableStateFlow(false)
+
+
+    var titleText = MutableStateFlow<String>("")
+
+    var isBackButtonShow = MutableStateFlow<Boolean>(true)
 
     private val _job = Job()
 
@@ -19,5 +26,23 @@ abstract class BaseViewModel : ViewModel(), CoroutineScope {
     override fun onCleared() {
         _job.cancel()
         super.onCleared()
+    }
+
+
+    private lateinit var mNavigator: N
+
+    /**
+     * Get Navigator
+     */
+    protected val navigator: N
+        get() {
+            return mNavigator
+        }
+
+    /**
+     * Set Navigator
+     */
+    fun setNavigator(navigator: N) {
+        this.mNavigator = navigator
     }
 }

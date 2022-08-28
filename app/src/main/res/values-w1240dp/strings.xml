@@ -1,4 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="btn_text_back">Back</string>
+    <string name="invite">Invite</string>
+    <string name="title_text_invite_member">Invite Members</string>
+    <string name="title_text_home">Home</string>
+    <string name="current_members">Current Members</string>
+    <string name="current_supporters">Current Supporters</string>
+    <string name="invite_permissions">Invite Permissions</string>
+    <string name="limit">Limit</string>
+    <string name="invite_urls_are_valid_for_7_days_permissions_can_be_changed_from_the_member_management_view">Invite URLs are valid for 7 days Permissions can be changed from the member management view</string>
+    <string name="what_are_permissions">What are Permissions?</string>
+    <string name="btn_text_share_qr_code">Share QR Code</string>
+    <string name="btn_text_copy_link">Copy Link</string>
 </resources>

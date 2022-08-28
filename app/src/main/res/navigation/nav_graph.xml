@@ -15,9 +15,7 @@
             android:id="@+id/action_homeFragment_to_inviteMemberFragment"
             app:destination="@id/inviteMemberFragment" />
 
-        <action
-            android:id="@+id/action_homeFragment_to_qrCodeFragment"
-            app:destination="@id/qrCodeFragment" />
+
     </fragment>
     <fragment
         android:id="@+id/inviteMemberFragment"
@@ -28,17 +26,21 @@
         <action
             android:id="@+id/action_inviteMemberFragment_to_homeFragment"
             app:destination="@id/homeFragment" />
+        <action
+            android:id="@+id/action_inviteMemberFragment_to_qrCodeFragment"
+            app:destination="@id/qrCodeFragment" />
     </fragment>
 
 
     <fragment
         android:id="@+id/qrCodeFragment"
-        android:name="com.splyza.testapp.presentation.inviteMember.InviteMemberFragment"
+        android:name="com.splyza.testapp.presentation.qrCode.QRCodeFragment"
         android:label="@string/second_fragment_label"
-        tools:layout="@layout/fragment_invite_member">
+        tools:layout="@layout/fragment_qr_code">
+
 
         <action
-            android:id="@+id/action_qrCodeFragment_to_homeFragment"
-            app:destination="@id/homeFragment" />
+            android:id="@+id/action_qrCodeFragment_to_inviteMemberFragment"
+            app:destination="@id/inviteMemberFragment" />
     </fragment>
 </navigation>

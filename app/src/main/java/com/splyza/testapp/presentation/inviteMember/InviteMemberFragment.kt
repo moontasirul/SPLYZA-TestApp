@@ -5,42 +5,44 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.splyza.testapp.R
+import com.splyza.testapp.core.base.BaseFragment
 import com.splyza.testapp.databinding.FragmentInviteMemberBinding
+import com.splyza.testapp.presentation.MainActivity
+import com.splyza.testapp.presentation.home.HomeViewModel
 
 /**
  * A simple [Fragment] subclass as the second destination in the navigation.
  */
-class InviteMemberFragment : Fragment() {
+class InviteMemberFragment :
+    BaseFragment<FragmentInviteMemberBinding, InviteMemberViewModel>(FragmentInviteMemberBinding::inflate),
+    IInviteMemberNavigator {
 
-    private var _binding: FragmentInviteMemberBinding? = null
-
-    // This property is only valid between onCreateView and
-    // onDestroyView.
-    private val binding get() = _binding!!
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-
-        _binding = FragmentInviteMemberBinding.inflate(inflater, container, false)
-        return binding.root
-
-    }
-
+    override val viewModel: InviteMemberViewModel by viewModels()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.buttonSecond.setOnClickListener {
-            findNavController().navigate(R.id.action_inviteMemberFragment_to_homeFragment)
-        }
+
+        (activity as MainActivity?)?.viewModel?.isBackButtonShow?.value = true
+        (activity as MainActivity?)?.viewModel?.titleText?.value =
+            requireActivity().resources.getString(R.string.title_text_invite_member)
+
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
+
+    override fun observe() {
+        binding.apply {
+            lifecycleOwner = viewLifecycleOwner
+            inviteMemberViewModel = viewModel
+        }
+        viewModel.setNavigator(this)
+    }
+
+
+    override fun onOpenShareQRCode() {
+        findNavController().navigate(R.id.action_inviteMemberFragment_to_qrCodeFragment)
     }
 }

@@ -13,12 +13,13 @@ import androidx.viewbinding.ViewBinding
 
 typealias Inflate<T> = (LayoutInflater, ViewGroup?, Boolean) -> T
 
-open class BaseFragment<V : ViewBinding>(
+abstract class BaseFragment<V : ViewBinding, VM : BaseViewModel<*>>(
     private val inflate: Inflate<V>
 ) : Fragment() {
 
     private var _binding: V? = null
     protected val binding get() = _binding!!
+    protected abstract val viewModel: VM
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -30,9 +31,7 @@ open class BaseFragment<V : ViewBinding>(
         return binding.root
     }
 
-    open fun observe() {
-
-    }
+    open fun observe() {}
 
     override fun onDestroy() {
         super.onDestroy()

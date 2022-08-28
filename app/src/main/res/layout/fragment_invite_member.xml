@@ -1,27 +1,207 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
     tools:context=".presentation.inviteMember.InviteMemberFragment">
 
-    <TextView
-        android:id="@+id/textview_second"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toTopOf="@id/button_second"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <data>
 
-    <Button
-        android:id="@+id/button_second"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/previous"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/textview_second" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <import type="android.view.View" />
+
+        <variable
+            name="inviteMemberViewModel"
+            type="com.splyza.testapp.presentation.inviteMember.InviteMemberViewModel" />
+    </data>
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_begin="16dp" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_end="16dp" />
+
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/current_member_label_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="25dp"
+            android:text="@string/current_members"
+            app:layout_constraintStart_toStartOf="@id/guideline"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/current_member_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="6dp"
+            android:layout_marginTop="25dp"
+            android:text="@{inviteMemberViewModel.currentMembers}"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@id/current_member_label_tv"
+            app:layout_constraintStart_toEndOf="@id/current_member_label_tv"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="80" />
+
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/member_limit_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="25dp"
+            android:text="@{inviteMemberViewModel.memberLimit}"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="@id/guideline1"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="10" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/member_limit_label_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="25dp"
+            android:layout_marginEnd="6dp"
+            android:text="@string/limit"
+            app:layout_constraintBottom_toBottomOf="@id/member_limit_tv"
+            app:layout_constraintEnd_toStartOf="@id/member_limit_tv"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/current_supporters_label_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="@string/current_supporters"
+            app:layout_constraintStart_toStartOf="@id/guideline"
+            app:layout_constraintTop_toBottomOf="@id/current_member_label_tv" />
+
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/current_supporters_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="6dp"
+            android:layout_marginTop="20dp"
+            android:text="@{inviteMemberViewModel.currentSupporters}"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/current_supporters_label_tv"
+            app:layout_constraintStart_toEndOf="@id/current_supporters_label_tv"
+            app:layout_constraintTop_toBottomOf="@id/current_member_label_tv"
+            tools:text="120" />
+
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/supporters_limit_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="@{inviteMemberViewModel.supporterLimit}"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="@id/guideline1"
+            app:layout_constraintTop_toBottomOf="@id/current_member_label_tv"
+            tools:text="20" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/supporters_limit_label_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="6dp"
+            android:text="@string/limit"
+            app:layout_constraintBottom_toBottomOf="@id/supporters_limit_tv"
+            app:layout_constraintEnd_toStartOf="@id/supporters_limit_tv"
+            app:layout_constraintTop_toBottomOf="@id/current_member_label_tv" />
+
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/invite_permission_label_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="@string/invite_permissions"
+            app:layout_constraintStart_toStartOf="@id/guideline"
+            app:layout_constraintTop_toBottomOf="@id/current_supporters_label_tv" />
+
+
+        <androidx.appcompat.widget.AppCompatSpinner
+            android:id="@+id/invite_permission_sp"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="6dp"
+            app:layout_constraintEnd_toEndOf="@id/guideline1"
+            app:layout_constraintStart_toStartOf="@id/guideline"
+            app:layout_constraintTop_toBottomOf="@id/invite_permission_label_tv" />
+
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/permission_message_tv"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="10dp"
+            android:gravity="center"
+            android:text="@string/invite_urls_are_valid_for_7_days_permissions_can_be_changed_from_the_member_management_view"
+            app:layout_constraintEnd_toEndOf="@id/guideline1"
+            app:layout_constraintStart_toStartOf="@id/guideline"
+            app:layout_constraintTop_toBottomOf="@id/invite_permission_sp" />
+
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/permission_questions_tv"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="10dp"
+            android:gravity="center"
+            android:text="@string/what_are_permissions"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toEndOf="@id/guideline1"
+            app:layout_constraintStart_toStartOf="@id/guideline"
+            app:layout_constraintTop_toBottomOf="@id/permission_message_tv" />
+
+
+        <Button
+            android:id="@+id/btn_qr_code_share"
+            android:layout_width="0dp"
+            android:layout_height="60dp"
+            android:layout_marginTop="15dp"
+            android:onClick="@{()->inviteMemberViewModel.onClickShareQRCode()}"
+            android:text="@string/btn_text_share_qr_code"
+            android:textAllCaps="false"
+            app:layout_constraintEnd_toEndOf="@id/guideline1"
+            app:layout_constraintStart_toStartOf="@id/guideline"
+            app:layout_constraintTop_toBottomOf="@id/permission_questions_tv" />
+
+        <Button
+            android:id="@+id/btn_copy_link"
+            android:layout_width="0dp"
+            android:layout_height="60dp"
+            android:layout_marginTop="11dp"
+            android:onClick="@{()->inviteMemberViewModel.onClickCopyLink()}"
+            android:text="@string/btn_text_copy_link"
+            android:textAllCaps="false"
+            app:layout_constraintEnd_toEndOf="@id/guideline1"
+            app:layout_constraintStart_toStartOf="@id/guideline"
+            app:layout_constraintTop_toBottomOf="@id/btn_qr_code_share" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
