@@ -7,5 +7,4 @@
     android:gravity="center"
     android:padding="15dp"
     android:textAlignment="gravity"
-    android:textColor="@color/teal_700"
     android:textSize="16sp" />

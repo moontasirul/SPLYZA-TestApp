@@ -1,15 +1,17 @@
 package com.splyza.testapp.presentation.inviteMember
 
+
 import android.content.Context
+import android.graphics.Color
+import android.os.Build
 import android.os.Bundle
-import android.view.Gravity
-import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
-import android.widget.LinearLayout
+import android.widget.TextView
 import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -17,7 +19,7 @@ import com.splyza.testapp.R
 import com.splyza.testapp.core.base.BaseFragment
 import com.splyza.testapp.databinding.FragmentInviteMemberBinding
 import com.splyza.testapp.presentation.MainActivity
-import com.splyza.testapp.presentation.home.HomeViewModel
+
 
 /**
  * A simple [Fragment] subclass as the second destination in the navigation.
@@ -27,7 +29,8 @@ class InviteMemberFragment :
     IInviteMemberNavigator, AdapterView.OnItemSelectedListener {
 
     override val viewModel: InviteMemberViewModel by viewModels()
-    var teamMember = arrayOf("Coach", "Player Coach", "Player", "Supporter")
+
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -36,17 +39,60 @@ class InviteMemberFragment :
         (activity as MainActivity?)?.viewModel?.titleText?.value =
             requireActivity().resources.getString(R.string.title_text_invite_member)
 
-        val aa = ArrayAdapter(requireActivity(), R.layout.spinner_item_selected, teamMember)
+        viewModel.checkSupporterLimit()
+        viewModel.permissionListHideShow()
+
+        // initialize an array adapter
+        val aa: ArrayAdapter<Any> = object : ArrayAdapter<Any>(
+            requireActivity(),
+            R.layout.spinner_item_selected,
+            viewModel.teamMember.toArray()
+        ) {
+//            override fun isEnabled(position: Int): Boolean {
+//                return position != 1
+//            }
+
+            @RequiresApi(Build.VERSION_CODES.M)
+            override fun getDropDownView(
+                position: Int,
+                convertView: View?,
+                parent: ViewGroup
+            ): View {
+                val view1 = super.getDropDownView(position, convertView, parent)
+                val tv = view1 as TextView
+
+                if (position != 0 && position != 1 && position != 2 || !viewModel.isMemberFull) {
+                    if (position == 3 && !viewModel.isMemberFull && viewModel.isSupporterFull) {
+                        tv.setTextColor(Color.GRAY)
+                    } else {
+                        tv.setTextColor(
+                            requireActivity().resources.getColor(
+                                R.color.teal_700,
+                                null
+                            )
+                        )
+                    }
+                } else {
+                    tv.setTextColor(Color.GRAY)
+                }
+
+
+
+                return view1
+            }
+        }
+
         aa.setDropDownViewResource(R.layout.spinner_center_aligned)
 
         with(binding.invitePermissionSp)
         {
             adapter = aa
             setSelection(0, false)
+            viewModel.prepareUserRole(selectedItem.toString())
             onItemSelectedListener = this@InviteMemberFragment
-            view.textAlignment = View.TEXT_ALIGNMENT_TEXT_START
-
         }
+
+
     }
 
 
@@ -69,7 +115,16 @@ class InviteMemberFragment :
     }
 
     override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-        showToast(message = "Position:${position} and team member: ${teamMember[position]}")
+
+        if (position != 0 && position != 1 && position != 2 || !viewModel.isMemberFull) {
+            if (position == 3 && !viewModel.isMemberFull && viewModel.isSupporterFull) {
+                showToast(message = "Position:${position} and team member: ${viewModel.teamMember[position]}")
+            } else {
+                viewModel.prepareUserRole(viewModel.teamMember[position])
+            }
+        } else {
+            showToast(message = "Position:${position} and team member: ${viewModel.teamMember[position]}")
+        }
     }
 
     private fun showToast(
@@ -79,4 +134,6 @@ class InviteMemberFragment :
     ) {
         Toast.makeText(context, message, duration).show()
     }
+
+
 }
