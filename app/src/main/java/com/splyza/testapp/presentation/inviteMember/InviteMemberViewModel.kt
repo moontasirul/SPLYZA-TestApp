@@ -2,19 +2,18 @@ package com.splyza.testapp.presentation.inviteMember
 
 import com.splyza.testapp.core.base.BaseViewModel
 import com.splyza.testapp.data.model.InviteTeamRequest
-import com.splyza.testapp.domain.repository.MainRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import javax.inject.Inject
 
 @HiltViewModel
-class InviteMemberViewModel @Inject constructor(val repository: MainRepository) :
+class InviteMemberViewModel @Inject constructor() :
     BaseViewModel<IInviteMemberNavigator>() {
 
-    var currentMembers = MutableStateFlow((0..10).random().toString())
-    var currentSupporters = MutableStateFlow((0..10).random().toString())
-    var memberLimit = MutableStateFlow((0..10).random().toString())
-    var supporterLimit = MutableStateFlow((0..10).random().toString())
+    var currentMembers = MutableStateFlow("85")
+    var currentSupporters = MutableStateFlow("52")
+    var memberLimit = MutableStateFlow("20")
+    var supporterLimit = MutableStateFlow("15")
 
     var isMemberFull = false
     var isSupporterFull = false
@@ -22,8 +21,8 @@ class InviteMemberViewModel @Inject constructor(val repository: MainRepository) 
     var teamMember = arrayListOf("Coach", "Player Coach", "Player", "Supporter")
 
 
-    var maxMemberLimit = MutableStateFlow((0..20).random())
-    var maxSupporterLimit = MutableStateFlow((0..20).random())
+    var maxMemberLimit = MutableStateFlow(20)
+    var maxSupporterLimit = MutableStateFlow(20)
 
     var minSupporterLimit = MutableStateFlow(0)
 
@@ -78,9 +77,27 @@ class InviteMemberViewModel @Inject constructor(val repository: MainRepository) 
 
     }
 
+//    init {
+//        viewModelScope.launch {
+//            dummyValue()
+//        }
+//    }
 
-    suspend fun dummyValue() {
-        repository.getTeamInfo("2112121").data
-    }
+
+//    suspend fun dummyValue() {
+//      repository.getTeamInfo("2112121").data?.let {
+//
+//          currentMembers.value = it.members.members.toString()
+//          currentSupporters.value = it.members.supporters.toString()
+//
+//          maxMemberLimit.value = it.plan.memberLimit
+//          memberLimit.value = maxMemberLimit.value.toString()
+//          maxSupporterLimit.value = it.plan.supporterLimit
+//          supporterLimit.value = maxSupporterLimit.value.toString()
+//
+//      }
+//
+//
+//    }
 
 }

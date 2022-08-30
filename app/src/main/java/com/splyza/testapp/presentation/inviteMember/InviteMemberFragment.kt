@@ -41,6 +41,10 @@ class InviteMemberFragment :
         (activity as MainActivity?)?.viewModel?.titleText?.value =
             requireActivity().resources.getString(R.string.title_text_invite_member)
 
+
+
+
+
         viewModel.checkSupporterLimit()
         viewModel.permissionListHideShow()
 
@@ -104,6 +108,7 @@ class InviteMemberFragment :
             inviteMemberViewModel = viewModel
         }
         viewModel.setNavigator(this)
+
     }
 
 

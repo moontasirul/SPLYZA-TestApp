@@ -1,0 +1,15 @@
+{
+  "id": "57994f271ca5dd20847b910c",
+  "members": {
+    "total": 89,
+    "administrators": 1,
+    "managers": 18,
+    "editors": 6,
+    "members": 58,
+    "supporters": 6
+  },
+  "plan": {
+    "memberLimit": 100,
+    "supporterLimit": 20
+  }
+}
