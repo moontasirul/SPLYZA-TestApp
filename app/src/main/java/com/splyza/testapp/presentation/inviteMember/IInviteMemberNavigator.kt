@@ -5,4 +5,5 @@ import com.splyza.testapp.core.base.IBaseNavigator
 
 interface IInviteMemberNavigator : IBaseNavigator {
     fun onOpenShareQRCode()
+    fun copyLink()
 }

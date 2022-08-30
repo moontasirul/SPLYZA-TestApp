@@ -2,17 +2,19 @@ package com.splyza.testapp.presentation.inviteMember
 
 import com.splyza.testapp.core.base.BaseViewModel
 import com.splyza.testapp.data.model.InviteTeamRequest
+import com.splyza.testapp.domain.repository.MainRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import javax.inject.Inject
 
 @HiltViewModel
-class InviteMemberViewModel @Inject constructor() : BaseViewModel<IInviteMemberNavigator>() {
+class InviteMemberViewModel @Inject constructor(val repository: MainRepository) :
+    BaseViewModel<IInviteMemberNavigator>() {
 
-    var currentMembers = MutableStateFlow("80")
-    var currentSupporters = MutableStateFlow("10")
-    var memberLimit = MutableStateFlow("10")
-    var supporterLimit = MutableStateFlow("20")
+    var currentMembers = MutableStateFlow((0..10).random().toString())
+    var currentSupporters = MutableStateFlow((0..10).random().toString())
+    var memberLimit = MutableStateFlow((0..10).random().toString())
+    var supporterLimit = MutableStateFlow((0..10).random().toString())
 
     var isMemberFull = false
     var isSupporterFull = false
@@ -20,12 +22,15 @@ class InviteMemberViewModel @Inject constructor() : BaseViewModel<IInviteMemberN
     var teamMember = arrayListOf("Coach", "Player Coach", "Player", "Supporter")
 
 
-    var maxMemberLimit = MutableStateFlow(100)
-    var maxSupporterLimit = MutableStateFlow(20)
-    var minSupporterLimit = MutableStateFlow(10)
+    var maxMemberLimit = MutableStateFlow((0..20).random())
+    var maxSupporterLimit = MutableStateFlow((0..20).random())
+
+    var minSupporterLimit = MutableStateFlow(0)
 
 
     var isSupporterAvailable = MutableStateFlow(true)
+
+
     fun onClickShareQRCode() {
         navigator.onOpenShareQRCode()
     }
@@ -34,7 +39,9 @@ class InviteMemberViewModel @Inject constructor() : BaseViewModel<IInviteMemberN
         if (minSupporterLimit.value == 0) isSupporterAvailable.value = true
     }
 
-    fun onClickCopyLink() {}
+    fun onClickCopyLink() {
+        navigator.copyLink()
+    }
 
 
     fun permissionListHideShow() {
@@ -65,4 +72,15 @@ class InviteMemberViewModel @Inject constructor() : BaseViewModel<IInviteMemberN
         print(role.roleType)
         return role
     }
+
+
+    fun prepareInvitationURL() {
+
+    }
+
+
+    suspend fun dummyValue() {
+        repository.getTeamInfo("2112121").data
+    }
+
 }

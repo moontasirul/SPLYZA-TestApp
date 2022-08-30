@@ -1,6 +1,8 @@
 package com.splyza.testapp.presentation.inviteMember
 
 
+import android.content.ClipData
+import android.content.ClipboardManager
 import android.content.Context
 import android.graphics.Color
 import android.os.Build
@@ -129,6 +131,7 @@ class InviteMemberFragment :
 
     private fun showToast(
         context: Context = requireActivity(),
+
         message: String,
         duration: Int = Toast.LENGTH_LONG
     ) {
@@ -136,4 +139,16 @@ class InviteMemberFragment :
     }
 
 
+    override fun copyLink() {
+        val clipboardManager =
+            binding.btnCopyLink.context.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+        val clipData = ClipData.newPlainText("url", "https://example.com/ti/eyJpbnZpdGVJZ")
+        clipboardManager.setPrimaryClip(clipData)
+
+        Toast.makeText(
+            binding.btnCopyLink.context,
+            clipboardManager.primaryClip?.getItemAt(0)?.text,
+            Toast.LENGTH_LONG
+        ).show()
+    }
 }
