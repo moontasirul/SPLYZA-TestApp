@@ -1,5 +1,5 @@
 package com.splyza.testapp.data.model
 
-import com.google.gson.annotations.SerializedName
+import com.squareup.moshi.Json
 
-data class InviteTeamResponse(@SerializedName("url") val inviteURL: String)
+data class InviteTeamResponse(@Json(name = "url") val inviteURL: String)

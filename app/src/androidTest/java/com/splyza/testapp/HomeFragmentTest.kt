@@ -1,39 +1,49 @@
 package com.splyza.testapp
 
-import androidx.fragment.app.testing.FragmentScenario
 import androidx.fragment.app.testing.launchFragmentInContainer
-import androidx.lifecycle.Lifecycle
+import androidx.navigation.Navigation
+import androidx.navigation.testing.TestNavHostController
+import androidx.test.core.app.ApplicationProvider
 import androidx.test.espresso.Espresso.onView
-import androidx.test.espresso.action.ViewActions.click
-import androidx.test.espresso.matcher.ViewMatchers.withId
+import androidx.test.espresso.action.ViewActions
+import androidx.test.espresso.matcher.ViewMatchers
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.splyza.testapp.presentation.home.HomeFragment
-import org.junit.Before
+import dagger.hilt.android.testing.HiltAndroidTest
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import org.junit.Assert.assertEquals
 import org.junit.Test
 import org.junit.runner.RunWith
 
+@ExperimentalCoroutinesApi
 @RunWith(AndroidJUnit4::class)
+@HiltAndroidTest
 class HomeFragmentTest {
 
-    private lateinit var scenario: FragmentScenario<HomeFragment>
-
-    @Before
-    fun setup() {
-        scenario = launchFragmentInContainer<HomeFragment>()
-        scenario.moveToState(Lifecycle.State.STARTED)
-    }
 
     @Test
-    fun getViewModel() {
-    }
+    fun testNav() {
+        //Getting the NavController for test
+        val navController = TestNavHostController(
+            ApplicationProvider.getApplicationContext()
+        )
 
+        //Launches the Fragment in isolation
+        launchFragmentInContainer<HomeFragment>().onFragment { fragment ->
+            //Setting the navigation graph for the NavController
+            navController.setGraph(R.navigation.nav_graph)
 
-    @Test
-    fun observe() {
-    }
+            //Sets the NavigationController for the specified View
+            Navigation.setViewNavController(fragment.requireView(), navController)
+        }
 
-    @Test
-    fun openInviteMemberScreen() {
-        onView(withId(R.id.button_first)).perform(click())
+        // Verify that performing a click changes the NavController’s state
+        onView(ViewMatchers.withId(R.id.button_first))
+            .perform(ViewActions.click())
+
+        assertEquals(
+            navController.currentDestination?.id,
+            R.id.inviteMemberFragment
+        )
     }
 }

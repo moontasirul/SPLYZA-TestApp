@@ -9,14 +9,6 @@ import kotlin.coroutines.CoroutineContext
 
 /**
 Sample code for uses [networkBoundResource] from repository class
-
-fun getItems(request: MyRequest): Flow<Resource<List<MyItem>>> {
-return networkBoundResource(
-query = { dao.queryAll() },
-fetch = { retrofitService.getItems(request) },
-saveFetchResult = { items -> dao.insert(items) }
-)
-}
  */
 
 inline fun <ResultType, RequestType> networkBoundResource(
@@ -48,10 +40,6 @@ inline fun <ResultType, RequestType> networkBoundResource(
 
 /**
 Sample code for uses [safeApiCall] from repository class
-
-suspend fun getBestInstitute(): Resource<BestInstituteResponse> {
-return safeApiCall(dispatcher.IO) { teachingService.getBestInstitutes() }
-}
  */
 suspend fun <T : Any> safeApiCall(
     dispatcher: CoroutineContext,

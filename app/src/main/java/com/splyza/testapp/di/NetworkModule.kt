@@ -1,6 +1,8 @@
 package com.splyza.testapp.di
 
 
+import com.google.gson.Gson
+import com.google.gson.GsonBuilder
 import com.splyza.testapp.BuildConfig
 import com.splyza.testapp.core.network.interceptor.AuthInterceptor
 import com.splyza.testapp.core.network.interceptor.HttpRequestInterceptor
@@ -11,12 +13,15 @@ import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
-import retrofit2.converter.moshi.MoshiConverterFactory
+import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
 object NetworkModule {
+
+    @Provides
+    fun provideGson(): Gson = GsonBuilder().create()
 
     @Provides
     @Singleton
@@ -27,16 +32,25 @@ object NetworkModule {
             .build()
     }
 
+    @Singleton
+    @Provides
+    fun provideConverterFactory(): GsonConverterFactory =
+        GsonConverterFactory.create()
+
     @Provides
     @Singleton
-    fun provideRetrofit(okHttpClient: OkHttpClient): Retrofit {
+    fun provideRetrofit(
+        okHttpClient: OkHttpClient,
+        gsonConverterFactory: GsonConverterFactory
+    ): Retrofit {
         return Retrofit.Builder()
             .client(okHttpClient)
             .baseUrl(BuildConfig.BASE_URL)
-            .addConverterFactory(MoshiConverterFactory.create())
+            .addConverterFactory(gsonConverterFactory)
             .build()
     }
 
+    //.addConverterFactory(MoshiConverterFactory.create())
     @Provides
     @Singleton
     fun provideTeamService(retrofit: Retrofit): TeamService {

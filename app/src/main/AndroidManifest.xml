@@ -3,6 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.splyza.testapp">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:name=".SplyzaTestApplication"
         android:allowBackup="true"

@@ -16,19 +16,28 @@ import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.splyza.testapp.R
 import com.splyza.testapp.core.base.BaseFragment
 import com.splyza.testapp.databinding.FragmentInviteMemberBinding
 import com.splyza.testapp.presentation.MainActivity
+import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 
 
 /**
  * A simple [Fragment] subclass as the second destination in the navigation.
  */
+@AndroidEntryPoint
 class InviteMemberFragment :
     BaseFragment<FragmentInviteMemberBinding, InviteMemberViewModel>(FragmentInviteMemberBinding::inflate),
     IInviteMemberNavigator, AdapterView.OnItemSelectedListener {
+
+    companion object {
+        const val TAG_INVITATION_URL = "invitation_url"
+    }
+
 
     override val viewModel: InviteMemberViewModel by viewModels()
 
@@ -40,8 +49,6 @@ class InviteMemberFragment :
         (activity as MainActivity?)?.viewModel?.isBackButtonShow?.value = true
         (activity as MainActivity?)?.viewModel?.titleText?.value =
             requireActivity().resources.getString(R.string.title_text_invite_member)
-
-
 
 
 
@@ -95,6 +102,9 @@ class InviteMemberFragment :
             adapter = aa
             setSelection(0, false)
             viewModel.prepareUserRole(selectedItem.toString())
+            lifecycleScope.launch {
+                viewModel.setInvitationRole(viewModel.prepareUserRole(selectedItem.toString()))
+            }
             onItemSelectedListener = this@InviteMemberFragment
         }
 
@@ -113,7 +123,9 @@ class InviteMemberFragment :
 
 
     override fun onOpenShareQRCode() {
-        findNavController().navigate(R.id.action_inviteMemberFragment_to_qrCodeFragment)
+        val bundle = Bundle()
+        bundle.putString(TAG_INVITATION_URL, viewModel.invitationURL.value)
+        findNavController().navigate(R.id.action_inviteMemberFragment_to_qrCodeFragment, bundle)
     }
 
 
@@ -125,12 +137,15 @@ class InviteMemberFragment :
 
         if (position != 0 && position != 1 && position != 2 || !viewModel.isMemberFull) {
             if (position == 3 && !viewModel.isMemberFull && viewModel.isSupporterFull) {
-                showToast(message = "Position:${position} and team member: ${viewModel.teamMember[position]}")
+                showToast(message = "Team member: ${viewModel.teamMember[position]}")
             } else {
-                viewModel.prepareUserRole(viewModel.teamMember[position])
+                // viewModel.prepareUserRole(viewModel.teamMember[position])
+                lifecycleScope.launch {
+                    viewModel.setInvitationRole(viewModel.prepareUserRole(viewModel.teamMember[position]))
+                }
             }
         } else {
-            showToast(message = "Position:${position} and team member: ${viewModel.teamMember[position]}")
+            showToast(message = "Team member: ${viewModel.teamMember[position]}")
         }
     }
 
@@ -147,7 +162,7 @@ class InviteMemberFragment :
     override fun copyLink() {
         val clipboardManager =
             binding.btnCopyLink.context.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
-        val clipData = ClipData.newPlainText("url", "https://example.com/ti/eyJpbnZpdGVJZ")
+        val clipData = ClipData.newPlainText(TAG_INVITATION_URL, viewModel.invitationURL.value)
         clipboardManager.setPrimaryClip(clipData)
 
         Toast.makeText(

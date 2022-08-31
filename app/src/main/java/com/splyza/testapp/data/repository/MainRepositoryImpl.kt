@@ -2,6 +2,8 @@ package com.splyza.testapp.data.repository
 
 
 import com.splyza.testapp.core.network.Resource
+import com.splyza.testapp.data.model.InviteTeamRequest
+import com.splyza.testapp.data.model.InviteTeamResponse
 import com.splyza.testapp.data.model.TeamResponse
 import com.splyza.testapp.data.webservice.TeamService
 import com.splyza.testapp.domain.repository.MainRepository
@@ -30,6 +32,18 @@ class MainRepositoryImpl @Inject constructor(
         )
         val limit = TeamResponse.Plan(20, 20)
         return Resource.Success(TeamResponse(id, members, limit))
+    }
+
+    override suspend fun getTeamInviteURL(
+        id: String,
+        role: InviteTeamRequest
+    ): Resource<InviteTeamResponse> {
+//        return safeApiCall(dispatcher) {
+//            apiService.setMemberRole(id, role)
+//        }
+
+        val invite = InviteTeamResponse("https://www.google.com/${role.roleType}")
+        return Resource.Success(invite)
     }
 
 }
