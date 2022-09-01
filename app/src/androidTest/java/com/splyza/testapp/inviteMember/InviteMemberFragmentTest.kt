@@ -11,7 +11,7 @@ import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.filters.LargeTest
 import com.splyza.testapp.R
 import com.splyza.testapp.launchFragmentInHiltContainer
-import com.splyza.testapp.presentation.home.AppFragmentFactory
+import com.splyza.testapp.presentation.AppFragmentFactory
 import com.splyza.testapp.presentation.inviteMember.InviteMemberFragment
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest

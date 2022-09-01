@@ -1,7 +1,8 @@
-package com.splyza.testapp.presentation.home
+package com.splyza.testapp.presentation
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentFactory
+import com.splyza.testapp.presentation.home.HomeFragment
 import com.splyza.testapp.presentation.inviteMember.InviteMemberFragment
 import com.splyza.testapp.presentation.qrCode.QRCodeFragment
 import kotlinx.coroutines.ExperimentalCoroutinesApi

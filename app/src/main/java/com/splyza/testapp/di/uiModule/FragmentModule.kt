@@ -1,7 +1,7 @@
 package com.splyza.testapp.di.uiModule
 
 import androidx.fragment.app.FragmentFactory
-import com.splyza.testapp.presentation.home.AppFragmentFactory
+import com.splyza.testapp.presentation.AppFragmentFactory
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

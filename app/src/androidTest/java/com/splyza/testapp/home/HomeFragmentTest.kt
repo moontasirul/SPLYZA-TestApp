@@ -8,7 +8,7 @@ import androidx.test.espresso.matcher.ViewMatchers
 import androidx.test.filters.MediumTest
 import com.splyza.testapp.R
 import com.splyza.testapp.launchFragmentInHiltContainer
-import com.splyza.testapp.presentation.home.AppFragmentFactory
+import com.splyza.testapp.presentation.AppFragmentFactory
 import com.splyza.testapp.presentation.home.HomeFragment
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
