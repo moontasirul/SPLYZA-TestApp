@@ -13,6 +13,7 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.TextView
 import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -41,11 +42,8 @@ class InviteMemberFragment :
 
     override val viewModel: InviteMemberViewModel by viewModels()
 
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-
+    override fun setupUI() {
+        super.setupUI()
         (activity as MainActivity?)?.viewModel?.isBackButtonShow?.value = true
         (activity as MainActivity?)?.viewModel?.titleText?.value =
             requireActivity().resources.getString(R.string.title_text_invite_member)
@@ -109,6 +107,13 @@ class InviteMemberFragment :
         }
 
 
+        val callBack = object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                findNavController().popBackStack()
+                viewModel.currentMembers.value = ""
+            }
+        }
+        requireActivity().onBackPressedDispatcher.addCallback(callBack)
     }
 
 

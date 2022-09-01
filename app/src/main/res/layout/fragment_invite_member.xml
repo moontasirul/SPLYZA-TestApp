@@ -15,6 +15,7 @@
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/invite_member_root_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 

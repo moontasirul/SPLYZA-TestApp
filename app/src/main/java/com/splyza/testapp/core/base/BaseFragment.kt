@@ -33,6 +33,16 @@ abstract class BaseFragment<V : ViewBinding, VM : BaseViewModel<*>>(
 
     open fun observe() {}
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        setupUI()
+    }
+
+    /**
+     * Handle UI
+     */
+    protected open fun setupUI() = Unit
+
     override fun onDestroy() {
         super.onDestroy()
         _binding = null

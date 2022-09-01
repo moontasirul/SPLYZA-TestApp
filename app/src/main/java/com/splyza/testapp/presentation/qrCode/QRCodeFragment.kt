@@ -1,9 +1,7 @@
 package com.splyza.testapp.presentation.qrCode
 
 import android.graphics.Bitmap
-import android.os.Bundle
 import android.util.DisplayMetrics
-import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.splyza.testapp.R
@@ -27,9 +25,16 @@ class QRCodeFragment :
 
     override val viewModel: QRCodeViewModel by viewModels()
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+    override fun observe() {
+        binding.apply {
+            lifecycleOwner = viewLifecycleOwner
+            qrCodeViewModel = viewModel
+        }
+        viewModel.setNavigator(this)
+    }
 
+    override fun setupUI() {
+        super.setupUI()
         (activity as MainActivity?)?.viewModel?.isBackButtonShow?.value = true
         (activity as MainActivity?)?.viewModel?.titleText?.value =
             getString(R.string.title_text_my_qr_code)
@@ -42,17 +47,8 @@ class QRCodeFragment :
             ).toInt()
         )
         binding.ivQrCode.setImageBitmap(bitmap)
+
     }
-
-
-    override fun observe() {
-        binding.apply {
-            lifecycleOwner = viewLifecycleOwner
-            qrCodeViewModel = viewModel
-        }
-        viewModel.setNavigator(this)
-    }
-
 
     /**
      * This method convert dp to pixel
