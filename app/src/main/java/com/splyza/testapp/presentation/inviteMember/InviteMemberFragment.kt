@@ -49,11 +49,9 @@ class InviteMemberFragment @Inject constructor() :
             (requireActivity() as MainActivity?)?.viewModel?.isBackButtonShow?.value = true
             (requireActivity() as MainActivity?)?.viewModel?.titleText?.value =
                 requireActivity().resources.getString(R.string.title_text_invite_member)
-
         }
 
         viewModel.checkSupporterLimit()
-        //   viewModel.permissionListHideShow()
 
         // initialize an array adapter
         val aa: ArrayAdapter<Any> = object : ArrayAdapter<Any>(
@@ -107,15 +105,6 @@ class InviteMemberFragment @Inject constructor() :
             }
             onItemSelectedListener = this@InviteMemberFragment
         }
-
-
-//        val callBack = object : OnBackPressedCallback(true) {
-//            override fun handleOnBackPressed() {
-//                findNavController().popBackStack()
-//                viewModel.currentMembers.value = ""
-//            }
-//        }
-//        requireActivity().onBackPressedDispatcher.addCallback(callBack)
     }
 
 

@@ -18,7 +18,7 @@ class AuthInterceptor : Interceptor {
 
     private fun Request.signedRequest() = runBlocking {
         return@runBlocking newBuilder()
-            .addHeader("Authorization", "Client-ID ${BuildConfig.API_KEY}")//${BuildConfig.API_KEY}
+            .addHeader("Authorization", "Client-ID ${BuildConfig.API_KEY}")
             .build()
     }
 }
