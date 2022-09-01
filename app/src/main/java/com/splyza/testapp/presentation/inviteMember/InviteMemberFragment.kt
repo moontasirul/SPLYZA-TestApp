@@ -13,7 +13,6 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.TextView
 import android.widget.Toast
-import androidx.activity.OnBackPressedCallback
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -25,13 +24,14 @@ import com.splyza.testapp.databinding.FragmentInviteMemberBinding
 import com.splyza.testapp.presentation.MainActivity
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 
 /**
  * A simple [Fragment] subclass as the second destination in the navigation.
  */
 @AndroidEntryPoint
-class InviteMemberFragment :
+class InviteMemberFragment @Inject constructor() :
     BaseFragment<FragmentInviteMemberBinding, InviteMemberViewModel>(FragmentInviteMemberBinding::inflate),
     IInviteMemberNavigator, AdapterView.OnItemSelectedListener {
 
@@ -44,14 +44,16 @@ class InviteMemberFragment :
 
     override fun setupUI() {
         super.setupUI()
-        (activity as MainActivity?)?.viewModel?.isBackButtonShow?.value = true
-        (activity as MainActivity?)?.viewModel?.titleText?.value =
-            requireActivity().resources.getString(R.string.title_text_invite_member)
 
+        if (activity is MainActivity) {
+            (requireActivity() as MainActivity?)?.viewModel?.isBackButtonShow?.value = true
+            (requireActivity() as MainActivity?)?.viewModel?.titleText?.value =
+                requireActivity().resources.getString(R.string.title_text_invite_member)
 
+        }
 
         viewModel.checkSupporterLimit()
-        viewModel.permissionListHideShow()
+        //   viewModel.permissionListHideShow()
 
         // initialize an array adapter
         val aa: ArrayAdapter<Any> = object : ArrayAdapter<Any>(
@@ -107,13 +109,13 @@ class InviteMemberFragment :
         }
 
 
-        val callBack = object : OnBackPressedCallback(true) {
-            override fun handleOnBackPressed() {
-                findNavController().popBackStack()
-                viewModel.currentMembers.value = ""
-            }
-        }
-        requireActivity().onBackPressedDispatcher.addCallback(callBack)
+//        val callBack = object : OnBackPressedCallback(true) {
+//            override fun handleOnBackPressed() {
+//                findNavController().popBackStack()
+//                viewModel.currentMembers.value = ""
+//            }
+//        }
+//        requireActivity().onBackPressedDispatcher.addCallback(callBack)
     }
 
 

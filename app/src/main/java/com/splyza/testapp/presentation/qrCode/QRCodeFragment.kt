@@ -10,12 +10,13 @@ import com.splyza.testapp.databinding.FragmentQrCodeBinding
 import com.splyza.testapp.presentation.MainActivity
 import com.splyza.testapp.utils.QRcodeManager
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 /**
  * A simple [Fragment] subclass as the second destination in the navigation.
  */
 @AndroidEntryPoint
-class QRCodeFragment :
+class QRCodeFragment @Inject constructor() :
     BaseFragment<FragmentQrCodeBinding, QRCodeViewModel>(FragmentQrCodeBinding::inflate),
     IQRCodeNavigator {
 
@@ -35,9 +36,11 @@ class QRCodeFragment :
 
     override fun setupUI() {
         super.setupUI()
-        (activity as MainActivity?)?.viewModel?.isBackButtonShow?.value = true
-        (activity as MainActivity?)?.viewModel?.titleText?.value =
-            getString(R.string.title_text_my_qr_code)
+        if (activity is MainActivity) {
+            (requireActivity() as MainActivity?)?.viewModel?.isBackButtonShow?.value = true
+            (requireActivity() as MainActivity?)?.viewModel?.titleText?.value =
+                getString(R.string.title_text_my_qr_code)
+        }
 
 
         val qrCode = arguments?.getString(TAG_INVITATION_URL)

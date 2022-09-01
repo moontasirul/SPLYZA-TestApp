@@ -6,13 +6,18 @@ import androidx.navigation.fragment.findNavController
 import com.splyza.testapp.R
 import com.splyza.testapp.core.base.BaseFragment
 import com.splyza.testapp.databinding.FragmentHomeBinding
+import com.splyza.testapp.presentation.MainActivity
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import javax.inject.Inject
 
 /**
  * A simple [Fragment] subclass as the default destination in the navigation.
  */
+@ExperimentalCoroutinesApi
 @AndroidEntryPoint
-class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(FragmentHomeBinding::inflate),
+class HomeFragment @Inject constructor() :
+    BaseFragment<FragmentHomeBinding, HomeViewModel>(FragmentHomeBinding::inflate),
     IHomeNavigator {
 
     override val viewModel: HomeViewModel by viewModels()
@@ -28,8 +33,11 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(FragmentHo
 
     override fun setupUI() {
         super.setupUI()
-        //  (requireActivity() as MainActivity?)?.viewModel?.isBackButtonShow?.value = false
-        //  (requireActivity() as MainActivity?)?.viewModel?.titleText?.value = requireActivity().resources.getString(R.string.title_text_home)
+        if (activity is MainActivity) {
+            (requireActivity() as MainActivity?)?.viewModel?.isBackButtonShow?.value = false
+            (requireActivity() as MainActivity?)?.viewModel?.titleText?.value =
+                requireActivity().resources.getString(R.string.title_text_home)
+        }
 
     }
 

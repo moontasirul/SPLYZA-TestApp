@@ -39,6 +39,7 @@ class InviteMemberViewModel @Inject constructor(private val team: TeamInvitation
     var invitationURL = MutableStateFlow("https://example.com/ti/eyJpbnZpdGVJZ")
 
     init {
+        permissionListHideShow()
         viewModelScope.launch {
             getTeam()
         }
@@ -63,7 +64,9 @@ class InviteMemberViewModel @Inject constructor(private val team: TeamInvitation
                 isMemberFull = true
             }
             minSupporterLimit.value == 0 -> {
-                teamMember.removeAt(3)
+                if (teamMember.size >= 3) {
+                    teamMember.removeAt(3)
+                }
                 isMemberFull = false
             }
             currentSupporters.value.toInt() == maxSupporterLimit.value -> {

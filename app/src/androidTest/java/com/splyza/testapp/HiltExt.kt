@@ -4,16 +4,18 @@ import android.content.ComponentName
 import android.content.Intent
 import android.os.Bundle
 import androidx.annotation.StyleRes
+import androidx.core.util.Preconditions
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentFactory
 import androidx.test.core.app.ActivityScenario
 import androidx.test.core.app.ApplicationProvider
-import androidx.test.espresso.core.internal.deps.dagger.internal.Preconditions
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 
 @ExperimentalCoroutinesApi
 inline fun <reified T : Fragment> launchFragmentInHiltContainer(
     fragmentArgs: Bundle? = null,
     @StyleRes themeResId: Int = androidx.fragment.testing.R.style.FragmentScenarioEmptyFragmentActivityTheme,
+    fragmentFactory: FragmentFactory? = null,
     crossinline action: T.() -> Unit = {}
 ) {
     val startActivityIntent = Intent.makeMainActivity(
@@ -27,7 +29,10 @@ inline fun <reified T : Fragment> launchFragmentInHiltContainer(
     )
 
     ActivityScenario.launch<HiltTestActivity>(startActivityIntent).onActivity { activity ->
-        val fragment: Fragment = activity.supportFragmentManager.fragmentFactory.instantiate(
+        fragmentFactory?.let {
+            activity.supportFragmentManager.fragmentFactory = it
+        }
+        val fragment = activity.supportFragmentManager.fragmentFactory.instantiate(
             Preconditions.checkNotNull(T::class.java.classLoader),
             T::class.java.name
         )
@@ -35,7 +40,7 @@ inline fun <reified T : Fragment> launchFragmentInHiltContainer(
         activity.supportFragmentManager
             .beginTransaction()
             .add(android.R.id.content, fragment, "")
-            .commitAllowingStateLoss()
+            .commitNowAllowingStateLoss()
 
         (fragment as T).action()
     }
