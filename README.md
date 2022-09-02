@@ -6,6 +6,8 @@ important for this exercise). SPLYZA Teams has controls in place to ensure a Tea
 its allotted member and supporter limits. These controls make it necessary to provide Team coaches
 and administrators the ability to view the Teams membership limits and status.
 
+## Project Structure
+
 - **Core** - Contains different utilities that can be used by the different modules and base
   structures.
 
@@ -16,8 +18,6 @@ and administrators the ability to view the Teams membership limits and status.
 
   * model
     - remote: Defines POJO of network responses.
-
-  * local: This is responsible for performing caching operations using Room.
 
   * remote: This is responsible for performing network operations eg. defining API endpoints using
     Retrofit.
