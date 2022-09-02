@@ -58,7 +58,7 @@ class InviteMemberViewModel @Inject constructor(private val team: TeamInvitation
     }
 
 
-    fun permissionListHideShow() {
+    private fun permissionListHideShow() {
         when {
             currentMembers.value.toInt() == maxMemberLimit.value -> {
                 isMemberFull = true

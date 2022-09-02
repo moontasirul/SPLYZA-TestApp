@@ -18,10 +18,13 @@ class MainRepositoryImpl @Inject constructor(
 ) : MainRepository {
 
     override suspend fun getTeamInfo(id: String): Resource<TeamResponse> {
-//        return safeApiCall(dispatcher) {
-//            apiService.getTeamInfo("")
-//        }
-
+        /**
+        // due to there is no real api that's why off the below line of code
+        // and generate random data with always success return
+        return safeApiCall(dispatcher) {
+        apiService.getTeamInfo("")
+        }
+         */
         val members = TeamResponse.Members(
             (100..105).random(),
             (10..15).random(),
@@ -38,9 +41,13 @@ class MainRepositoryImpl @Inject constructor(
         id: String,
         role: InviteTeamRequest
     ): Resource<InviteTeamResponse> {
-//        return safeApiCall(dispatcher) {
-//            apiService.setMemberRole(id, role)
-//        }
+        /**
+        // due to there is no real api that's why off the below line of code
+        // and generate random data with always success return
+        return safeApiCall(dispatcher) {
+        apiService.setMemberRole(id, role)
+        }
+         */
 
         val invite = InviteTeamResponse("https://www.google.com/${role.roleType}")
         return Resource.Success(invite)
