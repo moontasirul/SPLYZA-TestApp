@@ -194,7 +194,6 @@ dependencies {
 
     // QR code library
     implementation 'com.google.zxing:core:3.5.0'
-    implementation 'com.journeyapps:zxing-android-embedded:4.3.0'
 
     //MockK
     def mockk_version = "1.12.5"

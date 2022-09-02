@@ -1,23 +1,23 @@
 package com.splyza.testapp.data.model
 
-import com.google.gson.annotations.SerializedName
+import com.squareup.moshi.Json
 
 data class TeamResponse(
-    @SerializedName("id") val id: String,
-    @SerializedName("members") val members: Members,
-    @SerializedName("plan") val plan: Plan
+    @Json(name = "id") val id: String,
+    @Json(name = "members") val members: Members,
+    @Json(name = "plan") val plan: Plan
 ) {
     data class Members(
-        @SerializedName("total") val total: Int,
-        @SerializedName("administrators") val administrators: Int,
-        @SerializedName("managers") val managers: Int,
-        @SerializedName("editors") val editors: Int,
-        @SerializedName("members") val members: Int,
-        @SerializedName("supporters") val supporters: Int
+        @Json(name = "total") val total: Int,
+        @Json(name = "administrators") val administrators: Int,
+        @Json(name = "managers") val managers: Int,
+        @Json(name = "editors") val editors: Int,
+        @Json(name = "members") val members: Int,
+        @Json(name = "supporters") val supporters: Int
     )
 
     data class Plan(
-        @SerializedName("memberLimit") val memberLimit: Int,
-        @SerializedName("supporterLimit") val supporterLimit: Int
+        @Json(name = "memberLimit") val memberLimit: Int,
+        @Json(name = "supporterLimit") val supporterLimit: Int
     )
 }
