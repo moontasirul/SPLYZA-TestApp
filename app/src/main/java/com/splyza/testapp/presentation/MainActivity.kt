@@ -2,7 +2,6 @@ package com.splyza.testapp.presentation
 
 import android.os.Bundle
 import android.view.Menu
-import android.view.MenuItem
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
@@ -13,6 +12,7 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import com.splyza.testapp.R
 import com.splyza.testapp.databinding.ActivityMainBinding
 import dagger.hilt.android.AndroidEntryPoint
+
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity(), IMainNavigator {
@@ -36,6 +36,7 @@ class MainActivity : AppCompatActivity(), IMainNavigator {
 
         val appBarConfiguration = AppBarConfiguration(
             setOf(
+                R.id.splashFragment,
                 R.id.homeFragment,
                 R.id.inviteMemberFragment,
                 R.id.qrCodeFragment
@@ -43,7 +44,6 @@ class MainActivity : AppCompatActivity(), IMainNavigator {
         )
 
         setupActionBarWithNavController(navController, appBarConfiguration)
-
 
     }
 
@@ -64,7 +64,7 @@ class MainActivity : AppCompatActivity(), IMainNavigator {
 //    }
 
     override fun onSupportNavigateUp(): Boolean {
-       navController = findNavController(R.id.nav_host_fragment_content_main)
+        navController = findNavController(R.id.nav_host_fragment_content_main)
         return navController.navigateUp(appBarConfiguration)
                 || super.onSupportNavigateUp()
     }
@@ -73,11 +73,13 @@ class MainActivity : AppCompatActivity(), IMainNavigator {
         when (navController.currentDestination?.id) {
             R.id.inviteMemberFragment -> {
                 findNavController(R.id.nav_host_fragment_content_main).navigate(
-                    R.id.action_inviteMemberFragment_to_homeFragment)
+                    R.id.action_inviteMemberFragment_to_homeFragment
+                )
             }
             R.id.qrCodeFragment -> {
                 findNavController(R.id.nav_host_fragment_content_main).navigate(
-                    R.id.action_qrCodeFragment_to_inviteMemberFragment)
+                    R.id.action_qrCodeFragment_to_inviteMemberFragment
+                )
             }
         }
     }

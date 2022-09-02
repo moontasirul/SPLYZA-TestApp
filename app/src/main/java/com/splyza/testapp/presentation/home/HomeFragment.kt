@@ -34,6 +34,7 @@ class HomeFragment @Inject constructor() :
     override fun setupUI() {
         super.setupUI()
         if (activity is MainActivity) {
+            (requireActivity() as MainActivity?)?.viewModel?.isToolbarShow?.value = true
             (requireActivity() as MainActivity?)?.viewModel?.isBackButtonShow?.value = false
             (requireActivity() as MainActivity?)?.viewModel?.titleText?.value =
                 requireActivity().resources.getString(R.string.title_text_home)

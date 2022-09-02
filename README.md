@@ -42,6 +42,9 @@ and administrators the ability to view the Teams membership limits and status.
 
 ## Major highlights and used libraries
 
-MVVM architecture Coroutines used for all the asynchronous work Hilt for dependency injection Moshi
-to parse the json UI data binding Navigation,ViewModel, LiveData, etc. from Jetpack components
-Android UI testing(used Espresso, Junit)
+* MVVM architecture Coroutines used for all the asynchronous work
+* Hilt for dependency injection
+* Moshi to parse the json
+* UI data binding
+* Navigation,ViewModel, LiveData, etc. from Jetpack components
+* Android UI testing(used Espresso, Junit)

@@ -26,6 +26,7 @@
             <include
                 android:id="@+id/toolbar"
                 layout="@layout/layout_custom_tool_bar"
+                android:visibility="@{viewModel.isToolbarShow?View.VISIBLE:View.GONE}"
                 app:viewModel="@{viewModel}"/>
 
         </com.google.android.material.appbar.AppBarLayout>

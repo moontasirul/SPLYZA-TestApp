@@ -16,6 +16,7 @@ abstract class BaseViewModel<N : IBaseNavigator> : ViewModel(), CoroutineScope {
 
     var titleText = MutableStateFlow<String>("")
 
+    var isToolbarShow = MutableStateFlow<Boolean>(false)
     var isBackButtonShow = MutableStateFlow<Boolean>(true)
 
     private val _job = Job()

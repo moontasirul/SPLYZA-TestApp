@@ -5,6 +5,7 @@ import androidx.fragment.app.FragmentFactory
 import com.splyza.testapp.presentation.home.HomeFragment
 import com.splyza.testapp.presentation.inviteMember.InviteMemberFragment
 import com.splyza.testapp.presentation.qrCode.QRCodeFragment
+import com.splyza.testapp.presentation.splash.SplashFragment
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import javax.inject.Inject
 
@@ -18,6 +19,10 @@ constructor(
     override fun instantiate(classLoader: ClassLoader, className: String): Fragment {
         return when (className) {
 
+            SplashFragment::class.java.name -> {
+                val fragment = SplashFragment()
+                fragment
+            }
             HomeFragment::class.java.name -> {
                 val fragment = HomeFragment()
                 fragment
